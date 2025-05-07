@@ -4,6 +4,7 @@ class TaskIntentRouter:
     """
     A smart routing engine that analyzes user input and task metadata
     to delegate requests to the appropriate modules or tools.
+    Now includes extended support for self-improvement and clarity directives.
     """
 
     def __init__(self):
@@ -12,6 +13,9 @@ class TaskIntentRouter:
             "scan": "self_diagnostic_engine",
             "debug": "self_diagnostic_engine",
             "optimize": "self_diagnostic_engine",
+            "self-improve": "self_diagnostic_engine",
+            "clarity": "self_diagnostic_engine",
+            "audit": "self_diagnostic_engine",
             "route": "task_intent_router",
             "module": "module_manager",
             "deploy": "module_manager",
@@ -19,17 +23,12 @@ class TaskIntentRouter:
         }
 
     def route(self, user_input):
-        """
-        Determines the correct module or tool to handle a given input.
-        Returns a dictionary with routing decision and confidence.
-        """
         matched_targets = []
         for keyword, target in self.routing_rules.items():
             if re.search(rf"\\b{keyword}\\b", user_input, re.IGNORECASE):
                 matched_targets.append(target)
 
         if matched_targets:
-            # Prioritize based on first match for now
             return {
                 "decision": matched_targets[0],
                 "matched_keywords": matched_targets,
